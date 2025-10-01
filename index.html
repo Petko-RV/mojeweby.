@@ -3,37 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kontakt – Moje stránka</title>
+  <title>NewStudio – Tvorba webových stránek</title>
   <style>
+    /* ====== Základní styl ====== */
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
+      line-height: 1.6;
       background: #f9f9f9;
       color: #333;
-      margin: 0;
-      padding: 0;
     }
-    .container {
-      max-width: 600px;
-      margin: 50px auto;
+    header {
+      background: #007BFF;
+      color: #fff;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    nav {
+      margin-top: 15px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* ====== Sekce ====== */
+    section {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
       background: #fff;
-      padding: 30px;
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
-    h2 {
+    section h2 {
       text-align: center;
       margin-bottom: 20px;
-      color: #222;
     }
-    label {
+
+    /* ====== Formulář ====== */
+    form label {
       display: block;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       font-weight: bold;
     }
-    input, textarea {
+    form input, form textarea {
       width: 100%;
       padding: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
       border: 1px solid #ccc;
       border-radius: 5px;
       font-size: 14px;
@@ -46,72 +72,120 @@
       border-radius: 5px;
       cursor: pointer;
       font-size: 16px;
-      width: 100%;
     }
     button:hover {
       background: #0056b3;
     }
-    .success-message {
-      display: none;
+    #form-status {
+      margin-top: 15px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .success { color: green; }
+    .error { color: red; }
+
+    /* ====== Footer ====== */
+    footer {
       text-align: center;
       padding: 20px;
-      background: #d4edda;
-      color: #155724;
-      border: 1px solid #c3e6cb;
-      border-radius: 5px;
-      margin-top: 20px;
+      background: #222;
+      color: #fff;
+      margin-top: 30px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <!-- HLAVIČKA -->
+  <header>
+    <h1>NewStudio</h1>
+    <p>Tvorba moderních webových stránek</p>
+    <nav>
+      <a href="#about">O nás</a>
+      <a href="#services">Služby</a>
+      <a href="#contact">Kontakt</a>
+    </nav>
+  </header>
+
+  <!-- O NÁS -->
+  <section id="about">
+    <h2>O nás</h2>
+    <p>
+      Jsme NewStudio – tým kreativních vývojářů a designérů. 
+      Pomůžeme vám vytvořit moderní a funkční webovou stránku, která osloví vaše zákazníky. 
+      Naše práce je rychlá, kvalitní a přizpůsobená na míru.
+    </p>
+  </section>
+
+  <!-- SLUŽBY -->
+  <section id="services">
+    <h2>Naše služby</h2>
+    <ul>
+      <li>🔥 Tvorba moderních webů</li>
+      <li>📱 Responzivní design (mobil, tablet, PC)</li>
+      <li>⚡ Rychlá optimalizace načítání</li>
+      <li>🎨 Grafický návrh a UX design</li>
+    </ul>
+  </section>
+
+  <!-- KONTAKT -->
+  <section id="contact">
     <h2>Zanechte nám kontakt</h2>
-    <p>Napište nám zprávu, ozveme se co nejdříve.</p>
-    
+    <p style="text-align:center;">Napište nám, s čím vám můžeme pomoci. Ozveme se co nejdříve.</p>
+
     <form id="contact-form" action="https://formspree.io/f/movkwvyq" method="POST">
       <label for="name">Jméno a příjmení*</label>
       <input type="text" id="name" name="name" required>
-      
+
       <label for="email">Váš e-mail*</label>
       <input type="email" id="email" name="email" required>
-      
+
       <label for="phone">Váš telefon</label>
       <input type="text" id="phone" name="phone">
-      
+
       <label for="subject">Předmět</label>
       <input type="text" id="subject" name="subject">
-      
+
       <label for="message">Vaše zpráva*</label>
       <textarea id="message" name="message" rows="5" required></textarea>
-      
+
       <button type="submit">Odeslat</button>
     </form>
 
-    <div class="success-message" id="success-message">
-      ✅ Vaše zpráva byla úspěšně odeslána. Brzy se vám ozveme!
-    </div>
-  </div>
+    <p id="form-status"></p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2025 NewStudio. Všechna práva vyhrazena.
+  </footer>
 
   <script>
-    const form = document.getElementById('contact-form');
-    const successMessage = document.getElementById('success-message');
+    const form = document.getElementById("contact-form");
+    const status = document.getElementById("form-status");
 
-    form.addEventListener('submit', async function(event) {
-      event.preventDefault(); // zastaví klasické odeslání
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
       const data = new FormData(form);
-      const response = await fetch(form.action, {
-        method: form.method,
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      });
-
-      if (response.ok) {
-        form.style.display = 'none'; // schová formulář
-        successMessage.style.display = 'block'; // ukáže zprávu
-      } else {
-        alert('Došlo k chybě při odesílání formuláře. Zkuste to prosím znovu.');
+      try {
+        const response = await fetch(form.action, {
+          method: form.method,
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+          status.textContent = "✅ Vaše zpráva byla úspěšně odeslána!";
+          status.className = "success";
+          form.reset();
+        } else {
+          status.textContent = "❌ Došlo k chybě. Zkuste to prosím znovu.";
+          status.className = "error";
+        }
+      } catch (error) {
+        status.textContent = "❌ Problém s připojením. Zkuste to později.";
+        status.className = "error";
       }
     });
   </script>
 </body>
 </html>
+
